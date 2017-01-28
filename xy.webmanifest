@@ -1,0 +1,32 @@
+{
+
+
+Cache-Control: max-age=2592000
+Content-Type: application/manifest+json
+"name": "Xing Yu",
+
+"orientation": "any",
+
+"short_name": "NXY",
+
+"theme_color": "aliceblue",
+"icons": [
+  {
+    "src": "http://ngxingyu.ml/apple-touch-icon-57x57.png",
+    "sizes": "57x57",
+  },
+  {
+    "src": "http://ngxingyu.ml/favicon.ico",
+    "sizes": "16x16 32x32 96x96 128x128 196x196"
+  },
+  {
+    "src": "http://ngxingyu.ml/nxy.svg",
+  }
+  {
+    "src": "http://ngxingyu.ml/mstile-310x310.png",
+  },
+],
+	"start_url": "/",
+	"display": "standalone",
+	"orientation": "any"
+}
