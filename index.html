@@ -51,27 +51,14 @@
     <option value="80279">Mountbatten MRT</option>    
   </select>
 <button onclick="runbus()">Refresh bus timing</button>
-      <p id = "stage"></p>
-</div>
-
-<footer role="contentinfo">
- <div id="footer" class="container">
-<center>
-
- <p>Designed and built by ngxingyu &copy; </p> 
-<br>
-</center>
- </div>
-</footer>
-
-
 <script>
 var bus,BusStopNumber,x = "";
 var i,j = 0;
     var d = new Date();
 
 function runbus(){
-
+   
+  alert("I am an alert box!");
 BusStopNumber=document.getElementById("BusStopNumber").value;
 
 var url= "http://datamall2.mytransport.sg/ltaodataservice/BusArrival?BusStopID="+BusStopNumber+"&SST=True";
@@ -120,9 +107,23 @@ x="";
 });
 }; 
 
-   
+
+</script>    
+      <p id = "stage"></p>
+</div>
+
+<footer role="contentinfo">
+ <div id="footer" class="container">
+<center>
+
+ <p>Designed and built by ngxingyu &copy; </p> 
+<br>
+</center>
+ </div>
+</footer>
+
+
   
-</script>      
       
       
 </body>
