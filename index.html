@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>   
+    <meta charset	="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name		="description" content="">
+    <meta name		="author" content="Xing Yu">
+	<meta name		="msvalidate.01" content="8159D148A8B5B76BF1D38EE8334CD078" />
+	<meta name		="google-site-verification" content="70dwm5_YQGpQmXjS4CGUgtlPlcgDiqO-iOepHgpsPCs" />
+	<meta name="application-name" content="Xing Yu">
+	<meta name="apple-mobile-web-app-title" content="Xing Yu">
+	<link rel="apple-touch-icon" href="nxy.png">
+<link rel="apple-touch-startup-image" href="nxy.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="apple-touch-icon-57x57.png" />
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="apple-touch-icon-114x114.png" />
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="apple-touch-icon-144x144.png" />
+<link rel="apple-touch-icon-precomposed" sizes="60x60" href="apple-touch-icon-60x60.png" />
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon-precomposed" sizes="76x76" href="apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="apple-touch-icon-152x152.png" />
+<link rel="icon" type="image/png" href="favicon-196x196.png" sizes="196x196" />
+<link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
+<link rel="icon" type="image/png" href="favicon-128.png" sizes="128x128" />
+<meta name="msapplication-TileColor" content="#FFFFFF" />
+<meta name="msapplication-TileImage" content="mstile-144x144.png" />
+<meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
+<meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
+<meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
+<meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
+    <link rel="manifest" href="./manifest.json">	<title>Xing Yu</title>
+<meta http-equiv="Expires" content="60000" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> 
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"> 
+
+</head>
+<body>
+<div class="container">
+  <select class="form-control" name="BusStopID" id="BusStopNumber">
+    <option value="66061">BCA Academy</option>
+    <option value="66069">Comfort Delgro</option>
+    <option value="52059">Blk 219</option>
+    <option value="52051">Blk 147</option>
+    <option value="80279">Mountbatten MRT</option>    
+  </select>
+<button onclick="runbus()">Refresh bus timing</button>
+      <p id = "stage"></p>
+</div>
+
+<footer role="contentinfo">
+ <div id="footer" class="container">
+<center>
+
+ <p>Designed and built by ngxingyu &copy; </p> 
+<br>
+</center>
+ </div>
+</footer>
+
+
+<script>
+var bus,BusStopNumber,x = "";
+var i,j = 0;
+    var d = new Date();
+
+function runbus(){
+
+BusStopNumber=document.getElementById("BusStopNumber").value;
+
+var url= "http://datamall2.mytransport.sg/ltaodataservice/BusArrival?BusStopID="+BusStopNumber+"&SST=True";
+
+$.ajaxSetup({
+  headers : {
+        "accountKey":"ZbYb7MbXREWqZP7RDI6dbg==",
+        'accept': 'application/json'
+  }
+});
+    
+$.getJSON(url, function(bus) { 
+x += '<p> Bus Stop ID : ' + bus.BusStopID + '</p><br>';
+x+= '  <div class="table-responsive"> <table class="table"><thead><tr><th>Bus Number</th><th> 1st bus </th><th> 2nd bus </th><th> 3rd bus </th></tr></thead><tbody>'
+for (i in bus.Services) {
+var a=bus.Services[i].NextBus.EstimatedArrival;
+var b=bus.Services[i].SubsequentBus.EstimatedArrival;
+var c=bus.Services[i].SubsequentBus3.EstimatedArrival;
+var ahours=(new Date(a)).getHours();
+var amins=(new Date(a)).getMinutes();
+var bhours=(new Date(b)).getHours();
+var bmins=(new Date(b)).getMinutes();
+var chours=(new Date(c)).getHours();
+var cmins=(new Date(c)).getMinutes();
+var bus1time = Math.floor(((new Date(a)).getTime() - (new Date(d)).getTime())/60000);
+var bus2time= Math.floor(((new Date(b)).getTime() - (new Date(d)).getTime())/60000);;
+var bus3time= Math.floor(((new Date(c)).getTime() - (new Date(d)).getTime())/60000);;
+var aload=bus.Services[i].NextBus.Load;
+var bload=bus.Services[i].SubsequentBus.Load;
+var cload=bus.Services[i].SubsequentBus3.Load;
+
+    x += '<tr><td><h3>Bus ' + bus.Services[i].ServiceNo + '</h3></td><td>' ;
+    x += bus1time + " mins <br>"  + ahours +":"+ amins+"<br>"+aload+'</td><td>';    
+    x += bus2time + " mins <br>"  + bhours +":"+ bmins+"<br>"+bload+'</td><td>';  
+    x += bus3time + " mins <br>"  + chours +":"+ cmins+"<br>"+cload+'</td></tr>';    
+/*     for (j in bus.Services[i].NextBus) {
+        x += bus.Services[i].NextBus[j] + "<br>";
+    }
+*/
+
+
+};
+x+="</tbody></table></div>"
+document.getElementById("stage").innerHTML = x;
+x="";
+});
+}; 
+
+   
+  
+</script>      
+      
+      
+</body>
+
+</html>
