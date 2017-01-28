@@ -95,20 +95,27 @@ x="";
 });
 }; 
 
-   
+ function alertMe(){alert("I am an alert box!");}  
   
 </script>
 </head>
 <body>
 <div class="container">
-  <select class="form-control" name="BusStopID" id="BusStopNumber">
+
+<form class="form-inline">
+
+  <select class="custom-select mb-2 mr-sm-2 mb-sm-0" name="BusStopID" id="BusStopNumber">
+    <option selected>Choose...</option>
     <option value="66061">BCA Academy</option>
     <option value="66069">Comfort Delgro</option>
     <option value="52059">Blk 219</option>
     <option value="52051">Blk 147</option>
     <option value="80279">Mountbatten MRT</option>    
   </select>
-<button onclick="runbus();">Refresh bus timing</button>
+
+  <button onclick="alertMe()" class="btn btn-primary">Submit</button>
+</form>
+ 
       <p id = "stage"></p>
 </div>
 
