@@ -57,8 +57,7 @@ var i,j = 0;
     var d = new Date();
 
 function runbus(){
-   
-  alert("I am an alert box!");
+
 BusStopNumber=document.getElementById("BusStopNumber").value;
 
 var url= "http://datamall2.mytransport.sg/ltaodataservice/BusArrival?BusStopID="+BusStopNumber+"&SST=True";
@@ -103,7 +102,9 @@ var cload=bus.Services[i].SubsequentBus3.Load;
 };
 x+="</tbody></table></div>"
 document.getElementById("stage").innerHTML = x;
+alert(x);
 x="";
+
 });
 }; 
 
