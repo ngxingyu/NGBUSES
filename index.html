@@ -24,7 +24,7 @@
 $(document).ready(function(){
 
     $("#BusStopNumber").on('change', function(){
-alert("success");
+
 var bus, x = '';
 var i= 0;
 var d = new Date();
@@ -37,12 +37,13 @@ var url= "http://datamall2.mytransport.sg/ltaodataservice/BusArrival?BusStopID="
 $("#stage").append(url);
 $.ajaxSetup({
   headers : {
-        "accountKey":"ZbYb7MbXREWqZP7RDI6dbg==",
+"accountKey":"ZbYb7MbXREWqZP7RDI6dbg==",
 'accept': 'application/json'
   }
 });
     
 $.getJSON(url, function(bus) { 
+alert("success");
 x+="<p> Bus Stop ID : "+id+'</p><br>';
 $("#stage").append(x);
 $("#stage").append(bus);
