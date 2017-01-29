@@ -29,11 +29,11 @@ var i= 0;
 var d = new Date();
 id=$('#BusStopNumber').val();
 
-x+= id.concat('hi again, xd');
-$("#stage").append(x);
-var url= "http://datamall2.mytransport.sg/ltaodataservice/BusArrival?BusStopID=".concat(id,"&SST=True");
+var link= "http://datamall2.mytransport.sg/ltaodataservice/BusArrival?BusStopID=".concat(id,"&SST=True");
 
-$("#stage").append(url);
+x+="<p> Bus Stop ID : "+id+'</p><br>';
+x+= '  <div class="table-responsive"> <table class="table"><thead><tr><th>Bus Number</th><th> 1st bus </th><th> 2nd bus </th><th> 3rd bus </th></tr></thead><tbody>'
+;
 $.ajaxSetup({
   headers : {
 "accountKey":"ZbYb7MbXREWqZP7RDI6dbg==",
@@ -41,13 +41,9 @@ $.ajaxSetup({
   }
 });
     
-$.getJSON(url, function(bus) { 
-alert("success");
-x+="<p> Bus Stop ID : "+id+'</p><br>';
-$("#stage").append(x);
-$("#stage").append(bus);
-x+= '  <div class="table-responsive"> <table class="table"><thead><tr><th>Bus Number</th><th> 1st bus </th><th> 2nd bus </th><th> 3rd bus </th></tr></thead><tbody>'
-;
+$.getJSON(link, function(bus) { 
+
+
 for (i in bus.Services) {
 var a=bus.Services[i].NextBus.EstimatedArrival;
 var b=bus.Services[i].SubsequentBus.EstimatedArrival;
@@ -58,6 +54,8 @@ var bhours=(new Date(b)).getHours();
 var bmins=(new Date(b)).getMinutes();
 var chours=(new Date(c)).getHours();
 var cmins=(new Date(c)).getMinutes();
+cmins = (cmins < 10) ? ("0" + cmins) : cmins;
+
 var bus1time = Math.floor(((new Date(a)).getTime() - (new Date(d)).getTime())/60000);
 var bus2time= Math.floor(((new Date(b)).getTime() - (new Date(d)).getTime())/60000);
 var bus3time= Math.floor(((new Date(c)).getTime() - (new Date(d)).getTime())/60000);
@@ -73,9 +71,12 @@ var cload=bus.Services[i].SubsequentBus3.Load;
 };
 x+="</tbody></table></div>"
 ;
+
 $("#stage").html(x);
+
 x="";
 });
+
 }); 
 });
 </script>
@@ -92,7 +93,7 @@ x="";
     <option value="80279">Mountbatten MRT</option>    
   </select>
 </form>
-      <p id = "stage">hello</p>
+      <p id = "stage"></p>
 </div>
 
 <footer role="contentinfo">
