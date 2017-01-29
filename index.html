@@ -29,54 +29,40 @@ var i= 0;
 var d = new Date();
 id=$('#BusStopNumber').val();
 
-var link= "http://datamall2.mytransport.sg/ltaodataservice/BusArrival?BusStopID=".concat(id,"&SST=True");
+var link= "https://arrivelah.herokuapp.com/?id=".concat(id);
 
 x+="<p> Bus Stop ID : "+id+'</p><br>';
-x+= '  <div class="table-responsive"> <table class="table"><thead><tr><th>Bus Number</th><th> 1st bus </th><th> 2nd bus </th><th> 3rd bus </th></tr></thead><tbody>'
+x+= '  <div class="table-responsive"> <table class="table"><thead><tr><th>Bus Number</th><th> 1st bus </th><th> 2nd bus </th></tr></thead><tbody>'
 ;
-$.ajaxSetup({
-  headers : {
-"accountKey":"ZbYb7MbXREWqZP7RDI6dbg==",
-'accept': 'application/json'
-  }
-});
-    
+
 $.getJSON(link, function(bus) { 
 
+for (i in bus.services) {
+var a=bus.services[i].next.time;
+var b=bus.services[i].subsequent.time;
 
-for (i in bus.Services) {
-var a=bus.Services[i].NextBus.EstimatedArrival;
-var b=bus.Services[i].SubsequentBus.EstimatedArrival;
-var c=bus.Services[i].SubsequentBus3.EstimatedArrival;
 var ahours=(new Date(a)).getHours();
 var amins=(new Date(a)).getMinutes();
 var bhours=(new Date(b)).getHours();
 var bmins=(new Date(b)).getMinutes();
-var chours=(new Date(c)).getHours();
-var cmins=(new Date(c)).getMinutes();
-cmins = (cmins < 10) ? ("0" + cmins) : cmins;
+amins = (amins < 10) ? ("0" + amins) : amins;
+bmins = (bmins < 10) ? ("0" + bmins) : bmins;
 
 var bus1time = Math.floor(((new Date(a)).getTime() - (new Date(d)).getTime())/60000);
 var bus2time= Math.floor(((new Date(b)).getTime() - (new Date(d)).getTime())/60000);
-var bus3time= Math.floor(((new Date(c)).getTime() - (new Date(d)).getTime())/60000);
-var aload=bus.Services[i].NextBus.Load;
-var bload=bus.Services[i].SubsequentBus.Load;
-var cload=bus.Services[i].SubsequentBus3.Load;
 
-    x += '<tr><td><h3>Bus ' + bus.Services[i].ServiceNo + '</h3></td><td>' ;
-    x += bus1time + " mins <br>"  + ahours +":"+ amins+"<br>"+aload+'</td><td>';    
-    x += bus2time + " mins <br>"  + bhours +":"+ bmins+"<br>"+bload+'</td><td>';  
-    x += bus3time + " mins <br>"  + chours +":"+ cmins+"<br>"+cload+'</td></tr>';   
+    x += '<tr><td><h3>Bus ' + bus.services[i].no + '</h3></td><td>' ;
+    x += bus1time + " mins <br>"  + ahours +":"+ amins+'</td><td>';    
+    x += bus2time + " mins <br>"  + bhours +":"+ bmins+'</td></tr>';  
 
 };
 x+="</tbody></table></div>"
 ;
 
 
-});
 $("#stage").html(x);
-
 x="";
+});
 }); 
 });
 </script>
