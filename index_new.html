@@ -36,9 +36,10 @@ var link= "http://datamall2.mytransport.sg/ltaodataservice/BusArrival?BusStopID=
 x+="<p> Bus Stop ID : "+id+'</p><br>';
 x+= '  <div class="table-responsive"> <table class="table"><thead><tr><th>Bus Number</th><th> 1st bus </th><th> 2nd bus </th><th> 3rd bus </th></tr></thead><tbody>'
 ;
-
+$.ajaxSetup({
+beforeSend:function (xhr) {xhr.setRequestHeader ('AccountKey' , 'ZbYb7MbXREWqZP7RDI6dbg==')}});
 $.ajax({
-beforeSend:function (xhr) {xhr.setRequestHeader ('AccountKey' , 'ZbYb7MbXREWqZP7RDI6dbg== ')},
+beforeSend:function (xhr) {xhr.setRequestHeader ('AccountKey' , 'ZbYb7MbXREWqZP7RDI6dbg==')},
 url: link,
 dataType: 'json',
 type: 'GET',
