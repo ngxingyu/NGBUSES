@@ -38,10 +38,11 @@ x+= '  <div class="table-responsive"> <table class="table"><thead><tr><th>Bus Nu
 ;
 
 $.ajax({
+beforeSend:function (xhr) {xhr.setRequestHeader ('AccountKey' , 'ZbYb7MbXREWqZP7RDI6dbg== ')},
 url: link,
 dataType: 'json',
 type: 'GET',
-headers:{'AccountKey' : 'ZbYb7MbXREWqZP7RDI6dbg== ','accept' : 'application/json'},
+async:'false',
 success : function(bus){
 
 
