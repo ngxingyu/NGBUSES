@@ -28,11 +28,5 @@
 
 CACHE MANIFEST
 
-/nxy.css
-/nxy.png
-/nxy.svg
-/piano.jpg
-/service-worker.js
-/bg1.jpg
-/index.js
+/jquery.min.js
 /index.html
