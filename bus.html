@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>   
+    <meta charset	="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name		="description" content="">
+    <meta name		="author" content="Xing Yu">
+
+	<meta name="application-name" content="NG BUSES">
+	<meta name="apple-mobile-web-app-title" content="Xing Yu">
+	<link rel="apple-touch-icon" href="nxy.png">
+<link rel="apple-touch-startup-image" href="nxy.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+	<title>Xing Yu</title>
+<meta http-equiv="Expires" content="60000" />
+
+ <script src="stops.json" ></script>
+<style>html{font-family:sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}body{margin:0}a:active,a:hover{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:700}dfn{font-style:italic}h1{margin:.67em 0;font-size:2em}mark{color:#000;background:#ff0}}table{border-spacing:0;border-collapse:collapse}td,th{padding:0}body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;line-height:1.42857143;color:#333;background-color:#fff}button,input,select,textarea{font-family:inherit;font-size:inherit;line-height:inherit}a{color:#337ab7;text-decoration:none}a:focus,a:hover{color:#23527c;text-decoration:underline}a:focus{outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}figure{margin:0}img{vertical-align:middle}.container{padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto}@media (min-width:768px){.container{width:750px}}@media (min-width:992px){.container{width:970px}}@media (min-width:1200px){.container{width:1170px}}.container-fluid{padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto}.row{margin-right:-15px;margin-left:-15px}table{background-color:transparent}th{text-align:left}.table{width:100%;max-width:100%;margin-bottom:20px}.table>tbody>tr>td,.table>tbody>tr>th,.table>tfoot>tr>td,.table>tfoot>tr>th,.table>thead>tr>td,.table>thead>tr>th{padding:8px;line-height:1.42857143;vertical-align:top;border-top:1px solid #ddd}.table>thead>tr>th{vertical-align:bottom;border-bottom:2px solid #ddd}.table>caption+thead>tr:first-child>td,.table>caption+thead>tr:first-child>th,.table>colgroup+thead>tr:first-child>td,.table>colgroup+thead>tr:first-child>th,.table>thead:first-child>tr:first-child>td,.table>thead:first-child>tr:first-child>th{border-top:0}.table>tbody+tbody{border-top:2px solid #ddd}.table .table{background-color:#fff}.table-condensed>tbody>tr>td,.table-condensed>tbody>tr>th,.table-condensed>tfoot>tr>td,.table-condensed>tfoot>tr>th,.table-condensed>thead>tr>td,.table-condensed>thead>tr>th{padding:5px}.table-bordered{border:1px solid #ddd}.table-bordered>tbody>tr>td,.table-bordered>tbody>tr>th,.table-bordered>tfoot>tr>td,.table-bordered>tfoot>tr>th,.table-bordered>thead>tr>td,.table-bordered>thead>tr>th{border:1px solid #ddd}.table-bordered>thead>tr>td,.table-bordered>thead>tr>th{border-bottom-width:2px}.table-striped>tbody>tr:nth-of-type(odd){background-color:#f9f9f9}.table-hover>tbody>tr:hover{background-color:#f5f5f5}table col[class*=col-]{position:static;display:table-column;float:none}table td[class*=col-],table th[class*=col-]{position:static;display:table-cell;float:none}.table-responsive{min-height:.01%;overflow-x:auto}.form-control{display:block;width:100%;height:34px;padding:6px 12px;font-size:14px;line-height:1.42857143;color:#555;background-color:#fff;background-image:none;border:1px solid #ccc;border-radius:4px;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075);box-shadow:inset 0 1px 1px rgba(0,0,0,.075);-webkit-transition:border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;-o-transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s}.form-control:focus{border-color:#66afe9;outline:0;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)}.form-control::-moz-placeholder{color:#999;opacity:1}.form-control:-ms-input-placeholder{color:#999}.form-control::-webkit-input-placeholder{color:#999}.form-control::-ms-expand{background-color:transparent;border:0}.form-control[disabled],.form-control[readonly],fieldset[disabled] </style>
+</head>
+<body>
+
+<div class="container">
+
+<form onsubmit="submitbtn()">
+  <input type="text" class="form-control" name="BusStopID" id="BusStopNumber" name="keywords" list="BusStopSet">
+<datalist id="BusStopSet">
+<option selected>Choose your bus stop</option>
+</datalist>
+<input type="submit" value="Search">
+  </input>
+</form>
+      <p id = "stage"></p>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+		return navigator.geolocation.getCurrentPosition(showPosition);
+		console.log(navigator.geolocation.getCurrentPosition(showPosition));
+    } else {
+        console.log("Geolocation is not supported by this browser.");
+    }
+}
+var xpos;
+var ypos;
+function toRad(Value) {
+    /** Converts numeric degrees to radians */
+    return Value * Math.PI / 180;
+}
+function showPosition(position) {
+var location=(position.coords.latitude,position.coords.longitude);
+xpos=position.coords.latitude;
+ypos=position.coords.longitude;
+    console.log("Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude);
+}
+var locate=getLocation();
+function gettimings(){
+               
+			 
+			 var bus, htmlx = '';
+var i= 0;
+var d = new Date();
+var url = new URL(window.location);
+var id = url.searchParams.get("BusStopID");
+var link= "https://arrivelah.herokuapp.com/?id=".concat(id);
+
+var a=""
+for(var i = 0; i < j.length; i++) {
+    if (id == j[i].BusStopCode) {
+        a="<p> ID: "+id+' '+j[i].Description;
+		break;
+    } else {
+        a="<p>No Bus Stops with ID "+id+" exist. Please try again!"
+    }
+}
+htmlx+=a;
+htmlx+= '</p><div class="table-responsive"> <table class="table"><thead><tr><th>Bus Number</th><th> 1st bus </th><th> 2nd bus </th><th> 3rd bus </th></tr></thead><tbody>'
+;
+$.ajax({
+url: link,
+dataType: 'json',
+type: 'GET',
+success : function(bus){
+console.log("yay");
+for (i in bus.services) {	
+var a=bus.services[i].next.time;
+var b=bus.services[i].next2.time;
+var c=bus.services[i].next3.time;
+var ahours=(new Date(a)).getHours();
+var amins=(new Date(a)).getMinutes();
+var bhours=(new Date(b)).getHours();
+var bmins=(new Date(b)).getMinutes();
+var chours=(new Date(c)).getHours();
+var cmins=(new Date(c)).getMinutes();
+amins = (amins < 10) ? ("0" + amins) : amins;
+bmins = (bmins < 10) ? ("0" + bmins) : bmins;
+cmins = (cmins < 10) ? ("0" + cmins) : cmins;
+var bus1time = Math.floor(((new Date(a)).getTime() - (new Date(d)).getTime())/60000);
+var bus2time= Math.floor(((new Date(b)).getTime() - (new Date(d)).getTime())/60000);
+var bus3time= Math.floor(((new Date(c)).getTime() - (new Date(d)).getTime())/60000);
+    htmlx += '<tr><td><h3>Bus ' + bus.services[i].no + '</h3></td><td>' ;
+    htmlx += bus1time + " mins <br>"  + ahours +":"+ amins+'</td><td>';    
+    htmlx += bus2time + " mins <br>"  + bhours +":"+ bmins+'</td><td>';   
+    htmlx += bus3time + " mins <br>"  + bhours +":"+ bmins+'</td></tr>';  
+};
+htmlx+="</tbody></table></div>";
+console.log(htmlx);
+
+document.getElementById("stage").innerHTML=htmlx;
+x="";
+}
+})};
+function distVincenty(lat1, lon1, lat2, lon2) {
+ var a = 6378137,
+     b = 6356752.3142,
+     f = 1 / 298.257223563, // WGS-84 ellipsoid params
+     L = toRad(lon2-lon1),
+     x = Math.atan(1 - f),
+     U1 = x * Math.tan(toRad(lat1)),
+     U2 = x * Math.tan(toRad(lat2)),
+     sinU1 = Math.sin(U1),
+     cosU1 = Math.cos(U1),
+     sinU2 = Math.sin(U2),
+     cosU2 = Math.cos(U2),
+     lambda = L,
+     lambdaP,
+     iterLimit = 100;
+ do {
+  var sinLambda = Math.sin(lambda),
+      cosLambda = Math.cos(lambda),
+      sinSigma = Math.sqrt((cosU2 * sinLambda) * (cosU2 * sinLambda) + (cosU1 * sinU2 - sinU1 * cosU2 * cosLambda) * (cosU1 * sinU2 - sinU1 * cosU2 * cosLambda))
+  if (0 === sinSigma) {
+   return 0; // co-incident points
+  };
+  var cosSigma = sinU1 * sinU2 + cosU1 * cosU2 * cosLambda,
+      sigma = Math.atan2(sinSigma, cosSigma),
+      sinAlpha = cosU1 * cosU2 * sinLambda / sinSigma,
+      cosSqAlpha = 1 - sinAlpha * sinAlpha,
+      cos2SigmaM = cosSigma - 2 * sinU1 * sinU2 / cosSqAlpha,
+      C = f / 16 * cosSqAlpha * (4 + f * (4 - 3 * cosSqAlpha));
+  if (isNaN(cos2SigmaM)) {
+   cos2SigmaM = 0; // equatorial line: cosSqAlpha = 0 (§6)
+  };
+  
+  lambdaP = lambda;
+  lambda = L + (1 - C) * f * sinAlpha * (sigma + C * sinSigma * (cos2SigmaM + C * cosSigma * (-1 + 2 * cos2SigmaM * cos2SigmaM)));
+ } while (Math.abs(lambda - lambdaP) > 1e-12 && --iterLimit > 0);
+
+ if (0 === iterLimit) {
+  return NaN; // formula failed to converge
+ };
+
+ var uSq = cosSqAlpha * (a * a - b * b) / (b * b),
+     A = 1 + uSq / 16384 * (4096 + uSq * (-768 + uSq * (320 - 175 * uSq))),
+     B = uSq / 1024 * (256 + uSq * (-128 + uSq * (74 - 47 * uSq))),
+     deltaSigma = B * sinSigma * (cos2SigmaM + B / 4 * (cosSigma * (-1 + 2 * cos2SigmaM * cos2SigmaM) - B / 6 * cos2SigmaM * (-3 + 4 * sinSigma * sinSigma) * (-3 + 4 * cos2SigmaM * cos2SigmaM))),
+     s = b * A * (sigma - deltaSigma);
+ return s.toFixed(3); // round to 1mm precision
+};
+ $("#submit").click(gettimings()); 
+			 
+         
+
+$(document).ready(function(){
+
+
+setTimeout(function getnearest(){
+i=0;
+option="";
+temparray=[];
+for (x=0; x<j.length-1; x++){
+var dist=distVincenty(Number(j[x]["Latitude"]), Number(j[x]["Longitude"]), Number(xpos), Number(ypos));
+
+      if ( dist <= 350 || ['52051','52059','52039','52361','62071','66009','80279'].includes(j[x].BusStopCode)) {
+	 temparray.push([j[x].BusStopCode,j[x].Description,Math.floor(parseInt(dist))]);
+	 
+	 }
+      else continue;}
+	  
+temparray.sort(function(a, b) {
+    return a[2] - b[2];
+});
+
+	  	 console.log(temparray);
+		 
+	 option+='<option value="'+String(j[x].BusStopCode)+'"><h3> '+String(j[x].Description)+' '+Math.floor(parseInt(dist))+"m</h3></br>"
+	 
+	  console.log(option);
+document.getElementById('BusStopSet').innerHTML=option
+},3000);
+});
+gettimings();
+</script>
+
+
+<footer role="contentinfo">
+ <div id="footer" class="container">
+<center>
+
+ <p>Designed and built by ngxingyu &copy; </p> 
+<br>
+</center>
+ </div>
+</footer>
+
+      
+      
+      
+</body>
+
+</html>
