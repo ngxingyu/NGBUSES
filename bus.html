@@ -68,16 +68,17 @@ var url = new URL(window.location);
 var id = url.searchParams.get("BusStopID");
 var link= "https://arrivelah.herokuapp.com/?id=".concat(id);
 
-var a=""
+var a="";
 for(var i = 0; i < j.length; i++) {
     if (id == j[i].BusStopCode) {
-        a="<p> ID: "+id+' '+j[i].Description;
+        a="<p> ID: "+id+' '+j[i].Description+"   Last Updated:";
 		break;
     } else {
-        a="<p>No Bus Stops with ID "+id+" exist. Please try again!"
+        a="<p>No Bus Stops with ID "+id+" exist. Please try again! Last Updated:"
     }
 }
 htmlx+=a;
+htmlx+=d;
 htmlx+= '</p><div class="table-responsive"> <table class="table"><thead><tr><th>Bus Number</th><th> 1st bus </th><th> 2nd bus </th><th> 3rd bus </th></tr></thead><tbody>'
 ;
 $.ajax({
@@ -105,7 +106,7 @@ var bus3time= Math.floor(((new Date(c)).getTime() - (new Date(d)).getTime())/600
     htmlx += '<tr><td><h3>Bus ' + bus.services[i].no + '</h3></td><td>' ;
     htmlx += bus1time + " mins <br>"  + ahours +":"+ amins+'</td><td>';    
     htmlx += bus2time + " mins <br>"  + bhours +":"+ bmins+'</td><td>';   
-    htmlx += bus3time + " mins <br>"  + bhours +":"+ bmins+'</td></tr>';  
+    htmlx += bus3time + " mins <br>"  + chours +":"+ cmins+'</td></tr>';  
 };
 htmlx+="</tbody></table></div>";
 console.log(htmlx);
@@ -186,8 +187,11 @@ temparray.sort(function(a, b) {
 });
 
 	  	 console.log(temparray);
-		 
-	 option+='<option value="'+String(j[x].BusStopCode)+'"><h3> '+String(j[x].Description)+' '+Math.floor(parseInt(dist))+"m</h3></br>"
+for (x=0; x<temparray.length; x++){
+	  		 
+	 option+='<option value="'+temparray[x][0]+'"><h3> '+temparray[x][1]+' '+temparray[x][2]+"m</h3></br>"
+
+}
 	 
 	  console.log(option);
 document.getElementById('BusStopSet').innerHTML=option
