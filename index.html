@@ -8,12 +8,12 @@
     <meta name		="author" content="Xing Yu">
 
 	<meta name="application-name" content="NG BUSES">
-	<meta name="apple-mobile-web-app-title" content="Xing Yu">
+	<meta name="apple-mobile-web-app-title" content="Ng Buses">
 	<link rel="apple-touch-icon" href="nxy.png">
 <link rel="apple-touch-startup-image" href="nxy.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-	<title>Xing Yu</title>
+	<title>Timings</title>
 <meta http-equiv="Expires" content="60000" />
 
  <script src="stops.json" ></script>
@@ -131,7 +131,7 @@ cmins = (cmins < 10) ? ("0" + cmins) : cmins;
 var bus1time = Math.floor(((new Date(a)).getTime() - (new Date(d)).getTime())/60000);
 var bus2time= Math.floor(((new Date(b)).getTime() - (new Date(d)).getTime())/60000);
 var bus3time= Math.floor(((new Date(c)).getTime() - (new Date(d)).getTime())/60000);
-    htmlx += '<tr><td><h3>Bus ' + bus.services[i].no + '</h3></td><td>' ;
+    htmlx += '<tr><td><h3><a href="./routes.html?BusNo='+bus.services[i].no+'">Bus ' + bus.services[i].no + '</a></h3></td><td>' ;
     htmlx += bus1time + " mins <br>"  + ahours +":"+ amins+'</td><td>';    
     htmlx += bus2time + " mins <br>"  + bhours +":"+ bmins+'</td><td>';   
     htmlx += bus3time + " mins <br>"  + chours +":"+ cmins+'</td></tr>';  

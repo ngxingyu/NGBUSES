@@ -7,13 +7,13 @@
     <meta name		="description" content="">
     <meta name		="author" content="Xing Yu">
 
-	<meta name="application-name" content="NG BUSES">
-	<meta name="apple-mobile-web-app-title" content="Xing Yu">
+	<meta name="application-name" content="Bus Routes">
+	<meta name="apple-mobile-web-app-title" content="Bus Routes">
 	<link rel="apple-touch-icon" href="nxy.png">
 <link rel="apple-touch-startup-image" href="nxy.png">
 <meta name="apple-mob																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		file-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-	<title>Xing Yu</title>
+	<title>Routes</title>
 <meta http-equiv="Expires" content="60000" />
  <script src="stops.json" ></script>
  <script src="routes.json" ></script>
@@ -24,7 +24,7 @@
 
 <form onsubmit="submitbtn()">
 <div class="row">
-  <input type="text" class="form-control" name="BusStopID" id="BusStopNumber" name="keywords" list="BusStopSet">
+  <input type="text" class="form-control" name="BusNo" id="BusStopNumber" name="keywords" list="BusStopSet">
 <datalist id="BusStopSet">
 <option selected>Choose your bus stop</option>
 </datalist>
@@ -55,7 +55,7 @@ function getroutes(){
 var i= 0;
 var d = new Date();
 url = new URL(window.location);
-id = url.searchParams.get("BusStopID");
+id = url.searchParams.get("BusNo");
 
 var a="";
 for(var i = 0; i < r.length; i++) {
