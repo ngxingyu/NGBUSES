@@ -86,11 +86,11 @@ else continue;
 
 function test(){
 for (x=0;x<temparray1.length;x++){
-htmlx+="<tr><td>"+lookup(temparray1[x])[0]+"</td><td><a href='"+temparray1[x]+"'>"+temparray1[x]+"</a></td><td>"+ lookup(temparray1[x])[1]+"</td></tr>"
+htmlx+="<tr><td>"+lookup(temparray1[x])[0]+"</td><td><a href='./index.html?BusStopID="+temparray1[x]+"'>"+temparray1[x]+"</a></td><td>"+ lookup(temparray1[x])[1]+"</td></tr>"
 }
 htmlx+="</table><table class='table'><thead><tr><th>Direction 2</th></tr></thead><tbody>"
 for (x=0;x<temparray2.length;x++){
-htmlx+="<tr><td>"+lookup(temparray2[x])[0]+"</td><td><a href='"+temparray2[x]+"'>"+temparray2[x]+"</a></td><td>"+ lookup(temparray2[x])[1]+"</td></tr>"
+htmlx+="<tr><td>"+lookup(temparray2[x])[0]+"</td><td><a href='./index.html?BusStopID="+temparray2[x]+"'>"+temparray2[x]+"</a></td><td>"+ lookup(temparray2[x])[1]+"</td></tr>"
 }
 htmlx+="</tbody></table></div></div>";
 
