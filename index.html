@@ -25,7 +25,7 @@
 
 <form onsubmit="submitbtn()">
 <div class="row">
-  <input type="text" class="form-control" name="BusStopID" id="BusStopNumber" name="keywords" list="BusStopSet">
+  <input type="text" class="form-control" onclick="getLocation();" name="BusStopID" id="BusStopNumber" name="keywords" list="BusStopSet">
 <datalist id="BusStopSet">
 <option selected>Choose your bus stop</option>
 </datalist>
@@ -85,7 +85,6 @@ ypos=position.coords.longitude;
     console.log("Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude);
 getnearest();
 }
-var locate=getLocation();
 function gettimings(){
                
 			 
