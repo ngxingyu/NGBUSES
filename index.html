@@ -22,10 +22,10 @@
 <body>
 
 <div class="container">
-
+<button type="button" class="btn btn-info" onclick="getLocation()">Click to view location</button>
 <form onsubmit="submitbtn()">
 <div class="row">
-  <input type="text" class="form-control" onclick="getLocation();" name="BusStopID" id="BusStopNumber" name="keywords" list="BusStopSet">
+  <input type="text" class="form-control" name="BusStopID" id="BusStopNumber" name="keywords" list="BusStopSet">
 <datalist id="BusStopSet">
 <option selected>Choose your bus stop</option>
 </datalist>
